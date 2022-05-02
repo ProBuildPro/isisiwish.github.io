@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="isisiwish">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="isisiwish">
+    
+        <meta name="keywords" content="isisiwish">
+    
+    <meta name="description" content="">
+    <meta name="description" content="保持「空杯心态」，保持不断地进步和突破。认真、努力、专注的背景下还轮不到拼天赋和智商。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端系统学习路径">
+<meta property="og:url" content="http://isisiwish.top/2022-05-01/0430-FE/">
+<meta property="og:site_name" content="isisiwish&#39;s Note">
+<meta property="og:description" content="保持「空杯心态」，保持不断地进步和突破。认真、努力、专注的背景下还轮不到拼天赋和智商。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/isisiwish/blog-img-repo/img/image-20220430182307104.png">
+<meta property="article:published_time" content="2022-04-30T17:58:18.000Z">
+<meta property="article:modified_time" content="2022-05-02T12:21:52.175Z">
+<meta property="article:author" content="isisiwish">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/isisiwish/blog-img-repo/img/image-20220430182307104.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/null">
+    
+    <title>前端系统学习路径 · isisiwish&#39;s Note</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=202107" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=202107" as="style">
+    <link rel="stylesheet" href="/css/mobile.css?v=202107" media="(max-width: 980px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=202107" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=202107" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/js/all.min.js" data-auto-replace-svg="nest"></script>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?2f8bed701063a88bd8b3746c88bd04a1";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+    <!-- 谷歌统计  -->
+    
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            ga('create', 'UA-85678957-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>isisiwish's Note</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">isisiwish&#39;s Note</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">前端系统学习路径</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- dark mode -->
+        <script src="/scripts/dark.js"></script>
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                前端系统学习路径
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">4.9k</span>阅读时长: <span class="post-count reading-time">18 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2022/05/01</span>
+                    <!-- busuanzi -->
+                    
+                    <!-- 文章分享 -->
+                    <!--
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                    -->
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+        
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <p>保持「空杯心态」，保持不断地进步和突破。认真、努力、专注的背景下还轮不到拼天赋和智商。</p>
+<span id="more"></span>
+
+<h3 id="一、前端知识体系"><a href="#一、前端知识体系" class="headerlink" title="一、前端知识体系"></a>一、前端知识体系</h3><p><strong>前端知识体系の核心 = HTML + CSS + JavaScript</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/isisiwish/blog-img-repo/img/image-20220430182307104.png" alt="image-20220430182307104"></p>
+<hr>
+<h4 id="DAY001-软件开发-HTML结构-元素剖析"><a href="#DAY001-软件开发-HTML结构-元素剖析" class="headerlink" title="DAY001 软件开发-HTML结构-元素剖析"></a>DAY001 软件开发-HTML结构-元素剖析</h4><ul>
+<li><input disabled="" type="checkbox"> 01-自我介绍和课前提醒</li>
+<li><input disabled="" type="checkbox"> 02-软件开发和程序员（了解）</li>
+<li><input disabled="" type="checkbox"> 03-应用体系划分和前端开发工程师（理解）</li>
+<li><input disabled="" type="checkbox"> 04-前端发展路线和课程大纲（了解）</li>
+<li><input disabled="" type="checkbox"> 05-学习方法-学习建议（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-电脑配置和安装的软件（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-网页显示的过程和服务器（掌握）*</li>
+<li><input disabled="" type="checkbox"> 08-网页的三大组成部分分析（掌握）*</li>
+<li><input disabled="" type="checkbox"> 09-Typora工具使用和内容回顾（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-浏览器和浏览器内核（掌握）</li>
+<li><input disabled="" type="checkbox"> 11-开发第一个网页（掌握）</li>
+<li><input disabled="" type="checkbox"> 12-HTML语言和基本结构（掌握）</li>
+<li><input disabled="" type="checkbox"> 13-VSCode的安装-插件-配置（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-元素的结构分析和单双元素（掌握）</li>
+<li><input disabled="" type="checkbox"> 15-元素的属性和属性分类（掌握）</li>
+<li><input disabled="" type="checkbox"> 16-元素的嵌套和关系（掌握）</li>
+<li><input disabled="" type="checkbox"> 17-注释的作用和HTML注释（掌握）</li>
+<li><input disabled="" type="checkbox"> 18-内容回顾（掌握）</li>
+</ul>
+<h4 id="DAY002-HTML结构-body元素-额外知识补充"><a href="#DAY002-HTML结构-body元素-额外知识补充" class="headerlink" title="DAY002 HTML结构-body元素-额外知识补充"></a>DAY002 HTML结构-body元素-额外知识补充</h4><ul>
+<li><input disabled="" type="checkbox"> 01-内容概览和小技巧（了解）</li>
+<li><input disabled="" type="checkbox"> 02-HTML常见元素的概览（理解）</li>
+<li><input disabled="" type="checkbox"> 03-文档声明和HTML元素（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-head元素-title-mate配置（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-h元素和p元素及本质（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-h元素和p元素的案例联系（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-img元素的两个属性和可替换性（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-img元素的先谷底路径和图片格式（掌握）</li>
+<li><input disabled="" type="checkbox"> 09-a元素的两个属性和联系（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-a元素本页面的锚点连接（掌握）</li>
+<li><input disabled="" type="checkbox"> 11-a元素和img元素结合使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 12-a元素和其他URL地址（理解）</li>
+<li><input disabled="" type="checkbox"> 13-iframe的使用和禁止嵌入原因（理解）</li>
+<li><input disabled="" type="checkbox"> 14-iframe和a元素target的值（了解）</li>
+<li><input disabled="" type="checkbox"> 15-div元素和span元素的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 16-需要知道的不常用元素（理解）</li>
+<li><input disabled="" type="checkbox"> 17-常见的全局属性（掌握）</li>
+<li><input disabled="" type="checkbox"> 18-字符实体的作用和常见演练（掌握）</li>
+<li><input disabled="" type="checkbox"> 19-URL的规则和URI的区别（掌握）*</li>
+<li><input disabled="" type="checkbox"> 20-内容回顾（掌握）</li>
+</ul>
+<h4 id="DAY003-编写样式-CSS属性-Chrome调试-浏览器渲染"><a href="#DAY003-编写样式-CSS属性-Chrome调试-浏览器渲染" class="headerlink" title="DAY003 编写样式-CSS属性-Chrome调试-浏览器渲染"></a>DAY003 编写样式-CSS属性-Chrome调试-浏览器渲染</h4><ul>
+<li><input disabled="" type="checkbox"> 01-内容概述（了解）</li>
+<li><input disabled="" type="checkbox"> 02-元素语义化和作用（理解）</li>
+<li><input disabled="" type="checkbox"> 03-SEO优化-爬虫原理（理解）</li>
+<li><input disabled="" type="checkbox"> 04-字符编码的由来及历史（理解）</li>
+<li><input disabled="" type="checkbox"> 05-认识CSS-CSS的发展历史和作用（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-三种CSS的编写样式的规则（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-CSS的注释和建议（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-常见的CSS和学习文档推荐（理解）</li>
+<li><input disabled="" type="checkbox"> 09-CSS常见的5个属性（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-综合案例练习-星球介绍（掌握）</li>
+<li><input disabled="" type="checkbox"> 11-知识补充-link元素的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 12-进制的由来和其他进制表示（了解）</li>
+<li><input disabled="" type="checkbox"> 13-CSS的颜色各种表示方法（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-Chromea开发工具的使用（掌握）*</li>
+<li><input disabled="" type="checkbox"> 15-浏览器的渲染流程（理解）*</li>
+<li><input disabled="" type="checkbox"> 16-内容回顾（理解）</li>
+</ul>
+<h4 id="DAY004-CSS文本属性-CSS字体属性-CSS选择器"><a href="#DAY004-CSS文本属性-CSS字体属性-CSS选择器" class="headerlink" title="DAY004 CSS文本属性-CSS字体属性-CSS选择器"></a>DAY004 CSS文本属性-CSS字体属性-CSS选择器</h4><ul>
+<li><input disabled="" type="checkbox"> 01-内容概述（了解）</li>
+<li><input disabled="" type="checkbox"> 02-文本属性-text-decoration（掌握）</li>
+<li><input disabled="" type="checkbox"> 03-文本属性-text-transform-indent（了解）*</li>
+<li><input disabled="" type="checkbox"> 04-文本属性-text-align的基本使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-文本属性-text-align的本质探究（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-文本属性-text-align-justify（了解）</li>
+<li><input disabled="" type="checkbox"> 07-文本属性-word-letter-spacin（了解）</li>
+<li><input disabled="" type="checkbox"> 08-字体属性-font-size（掌握）</li>
+<li><input disabled="" type="checkbox"> 09-字体属性-font-family（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-字体属性-font-weight（掌握）</li>
+<li><input disabled="" type="checkbox"> 11-字体属性-font-ftyle-variant（掌握）</li>
+<li><input disabled="" type="checkbox"> 12-文本居中显示-line-height（掌握）</li>
+<li><input disabled="" type="checkbox"> 13-font缩写属性的语法规则（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-选择器-统配选择器（了解）</li>
+<li><input disabled="" type="checkbox"> 15-选择器-简单选择器（掌握）</li>
+<li><input disabled="" type="checkbox"> 16-选择器-属性选择器（掌握）</li>
+<li><input disabled="" type="checkbox"> 17-选择器-后代选择器（掌握）</li>
+<li><input disabled="" type="checkbox"> 18-选择器-兄弟选择器（理解）</li>
+<li><input disabled="" type="checkbox"> 19-选择器-选择器组-交集-并集（掌握）</li>
+<li><input disabled="" type="checkbox"> 20-认识伪类和常见的伪类（理解）</li>
+<li><input disabled="" type="checkbox"> 21-伪类-动态伪类-hover（掌握）</li>
+<li><input disabled="" type="checkbox"> 22-内容回顾（了解）</li>
+</ul>
+<h4 id="DAY005-CSS的继承-层叠-类型和CSS盒子模型"><a href="#DAY005-CSS的继承-层叠-类型和CSS盒子模型" class="headerlink" title="DAY005 CSS的继承-层叠-类型和CSS盒子模型"></a>DAY005 CSS的继承-层叠-类型和CSS盒子模型</h4><ul>
+<li><input disabled="" type="checkbox"> 01-伪元素-first-line-first-le（了解）</li>
+<li><input disabled="" type="checkbox"> 02-伪元素-before-after（掌握）</li>
+<li><input disabled="" type="checkbox"> 03-内容概述-特性-盒子模型（了解）*</li>
+<li><input disabled="" type="checkbox"> 04-CSS属性的特征-继承性（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-CSS属性的特征-层叠性（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-HTML元素的特性-块级-行内级-display（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-display的值-block-inline（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-HTML元素编写的注意事项（理解）</li>
+<li><input disabled="" type="checkbox"> 09-HTML元素的隐藏四种方法（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-元素的内容溢出（掌握）*</li>
+<li><input disabled="" type="checkbox"> 11-CSS样式不生效的原因（理解）</li>
+<li><input disabled="" type="checkbox"> 12-认识盒子模型-盒子模型的四部分（掌握）</li>
+<li><input disabled="" type="checkbox"> 13-盒子模型-内容-width-height（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-盒子模型-内边距-padding（掌握）</li>
+<li><input disabled="" type="checkbox"> 15-盒子模型-边框-border（掌握）</li>
+<li><input disabled="" type="checkbox"> 16-盒子模型-圆角-border-radius（掌握）*</li>
+<li><input disabled="" type="checkbox"> 17-内容回顾（掌握）*</li>
+</ul>
+<h4 id="DAY006-CSS盒子模型-CSS设置背景"><a href="#DAY006-CSS盒子模型-CSS设置背景" class="headerlink" title="DAY006 CSS盒子模型-CSS设置背景"></a>DAY006 CSS盒子模型-CSS设置背景</h4><ul>
+<li><input disabled="" type="checkbox"> 01-盒子模型-外边距-margin（掌握）</li>
+<li><input disabled="" type="checkbox"> 02-盒子模型-padding和margin对比（理解）</li>
+<li><input disabled="" type="checkbox"> 03-盒子模型margin上下传递问题（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-盒子模型margin上下折叠问题（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-块级元素的水平居中-margin-auto（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-关于margin-auto值得优劣分析（理解）</li>
+<li><input disabled="" type="checkbox"> 07-盒子模型-外轮廓-outline（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-盒子模型-盒子阴影-box-shadow（掌握）</li>
+<li><input disabled="" type="checkbox"> 09-盒子模型文字引擎-text-shadow（理解）</li>
+<li><input disabled="" type="checkbox"> 10-盒子苏醒在行内非替换元素的特殊性（掌握）</li>
+<li><input disabled="" type="checkbox"> 11-盒子模型-盒子尺寸计算（掌握）*</li>
+<li><input disabled="" type="checkbox"> 12-盒子模型-案例练习01（掌握）*</li>
+<li><input disabled="" type="checkbox"> 13-盒子模型-案例练习02（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-盒子模型-案例练习02的补充（掌握）</li>
+<li><input disabled="" type="checkbox"> 15-盒子模型-案例练习03（掌握）*</li>
+<li><input disabled="" type="checkbox"> 16-盒子模型-案例练习03的补充（理解）</li>
+<li><input disabled="" type="checkbox"> 17-设置背景-background-image（掌握）</li>
+<li><input disabled="" type="checkbox"> 18-设置背景-repeat-size-position（掌握）</li>
+<li><input disabled="" type="checkbox"> 19-设置附加-attachment-缩写属性（掌握）</li>
+<li><input disabled="" type="checkbox"> 20-background-image和img的对比（理解）</li>
+<li><input disabled="" type="checkbox"> 21-内容回顾（掌握）*</li>
+</ul>
+<h4 id="DAY007-HTML高级列表-表单-表格元素和Emmet"><a href="#DAY007-HTML高级列表-表单-表格元素和Emmet" class="headerlink" title="DAY007 HTML高级列表-表单-表格元素和Emmet"></a>DAY007 HTML高级列表-表单-表格元素和Emmet</h4><ul>
+<li><input disabled="" type="checkbox"> 01-内容概述（掌握）</li>
+<li><input disabled="" type="checkbox"> 02-列表元素的介绍和开发模式分析（理解）</li>
+<li><input disabled="" type="checkbox"> 03-常见的列表元素-ol-ul-dl使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-列表的练习-新闻列表-代码优化（掌握）*</li>
+<li><input disabled="" type="checkbox"> 05-案例的思路和继承属性的特征（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-表格元素的认识和介绍（理解）</li>
+<li><input disabled="" type="checkbox"> 07-table元素的使用-案例练习和重构（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-table的单元格合并-跨行-跨列（理解）</li>
+<li><input disabled="" type="checkbox"> 09-table的单元格合并练习-结构伪类（理解）</li>
+<li><input disabled="" type="checkbox"> 10-表单元素-input元素的基本使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 11-input是否是可替换元素的理解（了解）</li>
+<li><input disabled="" type="checkbox"> 12-input模拟button和button的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 13-label-input-radio-check（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-textarea-select-option（掌握）</li>
+<li><input disabled="" type="checkbox"> 15-form元素的使用和模拟百度（掌握）*</li>
+<li><input disabled="" type="checkbox"> 16-Emmet常见语法（了解）</li>
+<li><input disabled="" type="checkbox"> 17-内容回顾（掌握）</li>
+</ul>
+<h4 id="DAY008-结构伪类-图形-字体图标-元素定位"><a href="#DAY008-结构伪类-图形-字体图标-元素定位" class="headerlink" title="DAY008 结构伪类-图形-字体图标-元素定位"></a>DAY008 结构伪类-图形-字体图标-元素定位</h4><ul>
+<li><input disabled="" type="checkbox"> 01-结构伪类-nth-child-last（掌握）</li>
+<li><input disabled="" type="checkbox"> 02-结构伪类-nth-of-type-last（理解）</li>
+<li><input disabled="" type="checkbox"> 03-结构和否定伪类-root-empty（理解）</li>
+<li><input disabled="" type="checkbox"> 04-内容概述（了解）</li>
+<li><input disabled="" type="checkbox"> 05-border实现图形和旋转（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-网络字体-网络的字体使用流程和原理（理解）</li>
+<li><input disabled="" type="checkbox"> 07-网络字体-网络字体的使用过程（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-网络字体-网络字体的兼容性写法（理解）</li>
+<li><input disabled="" type="checkbox"> 09-字体图标-字体图片的原理和使用流程（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-精灵图-认识精灵图和获取过程（掌握）</li>
+<li><input disabled="" type="checkbox"> 11-精灵图-精灵图的使用过程（掌握）</li>
+<li><input disabled="" type="checkbox"> 12-光标显示-cursor-pointer（掌握）</li>
+<li><input disabled="" type="checkbox"> 13-布局-元素定位-标准流的理解（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-布局-元素定位-position属性介绍（掌握）</li>
+<li><input disabled="" type="checkbox"> 15-布局-元素定位-相对定位的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 16-布局-元素定位-梦幻西游案例（了解）</li>
+<li><input disabled="" type="checkbox"> 17-布局-元素定位-固定定位的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 18-布局-元素定位-固定定位练习（掌握）</li>
+<li><input disabled="" type="checkbox"> 19-内容回顾（掌握）</li>
+</ul>
+<h4 id="DAY009-CSS元素的定位和浮动"><a href="#DAY009-CSS元素的定位和浮动" class="headerlink" title="DAY009 CSS元素的定位和浮动"></a>DAY009 CSS元素的定位和浮动</h4><ul>
+<li><input disabled="" type="checkbox"> 01-布局-绝对定位-绝对定位的参考对象（掌握）</li>
+<li><input disabled="" type="checkbox"> 02-布局-绝对定位-增强案例子绝父绝（掌握）</li>
+<li><input disabled="" type="checkbox"> 03-布局-position设置fixed或abso（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-布局-position设置fixed或abso（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-值设置auto的效果总结（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-布局-绝对定位练习-网易item01（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-布局-绝对定位练习-网易item02（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-布局-绝对定位练习-网易item03（掌握）</li>
+<li><input disabled="" type="checkbox"> 09-布局-粘性定位-sticky的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-布局-定位元素的z-index设置（掌握）</li>
+<li><input disabled="" type="checkbox"> 11-布局-浮动-认识浮动（理解）</li>
+<li><input disabled="" type="checkbox"> 12-布局-浮动-浮动的常见规则（掌握）</li>
+<li><input disabled="" type="checkbox"> 13-布局-浮动-航捏元素的间隙处理（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-布局-浮动-案例01-百度页码展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 15-布局-浮动-案例02-京东商品布局01（掌握）</li>
+<li><input disabled="" type="checkbox"> 16-内容回顾（掌握）*</li>
+</ul>
+<h4 id="DAY010-CSS的浮动和flex布局"><a href="#DAY010-CSS的浮动和flex布局" class="headerlink" title="DAY010 CSS的浮动和flex布局"></a>DAY010 CSS的浮动和flex布局</h4><ul>
+<li><input disabled="" type="checkbox"> 01-布局-浮动布局-京东多列布局案例（掌握）*</li>
+<li><input disabled="" type="checkbox"> 02-布局-浮动布局-考拉多列布局方案一（掌握）*</li>
+<li><input disabled="" type="checkbox"> 03-布局-浮动布局-考拉多列布局方案二（掌握）*</li>
+<li><input disabled="" type="checkbox"> 04-布局-浮动布局-考拉布局的补充（理解）</li>
+<li><input disabled="" type="checkbox"> 05-布局-浮动布局-浮动的问题及清除浮动（掌握）*</li>
+<li><input disabled="" type="checkbox"> 06-布局方案的总结和回顾（理解）</li>
+<li><input disabled="" type="checkbox"> 07-认识flex布局和flex布局的由来（理解）</li>
+<li><input disabled="" type="checkbox"> 08-flex布局-两个重要概念-container（掌握）</li>
+<li><input disabled="" type="checkbox"> 09-flex布局-flex布局模型-主轴和交叉轴（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-flex布局-container-align（掌握）</li>
+<li><input disabled="" type="checkbox"> 11-flex布局-container-wrap（掌握）</li>
+<li><input disabled="" type="checkbox"> 12-flex布局-cintainer-justify-content（掌握）*</li>
+<li><input disabled="" type="checkbox"> 13-flex布局-container-align（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-flex布局-container-align（掌握）</li>
+<li><input disabled="" type="checkbox"> 15-flex布局-item-order（了解）</li>
+<li><input disabled="" type="checkbox"> 16-flex布局-item-align-self（了解）</li>
+<li><input disabled="" type="checkbox"> 17-flex布局-item-grow-shrink（掌握）</li>
+<li><input disabled="" type="checkbox"> 18-flex布局-item-flex-basis（掌握）</li>
+<li><input disabled="" type="checkbox"> 19-flex布局-item-flex属性（掌握）</li>
+<li><input disabled="" type="checkbox"> 20-flex不觉-flex布局justify-co（掌握）</li>
+<li><input disabled="" type="checkbox"> 21-内容回顾（掌握）</li>
+</ul>
+<h4 id="DAY010-EX1-HTML-CSS阶段练习（仿小米和考拉页面）"><a href="#DAY010-EX1-HTML-CSS阶段练习（仿小米和考拉页面）" class="headerlink" title="DAY010-EX1 HTML-CSS阶段练习（仿小米和考拉页面）"></a>DAY010-EX1 HTML-CSS阶段练习（仿小米和考拉页面）</h4><ul>
+<li><input disabled="" type="checkbox"> 01-小米wrapper区域的抽取（掌握）*</li>
+<li><input disabled="" type="checkbox"> 02-小米布局-头部的布局过程（掌握）</li>
+<li><input disabled="" type="checkbox"> 03-小米布局-内容列表布局过程（掌握）*</li>
+<li><input disabled="" type="checkbox"> 04-小米布局-hover动画效果（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-考拉布局-页面布局分析（掌握）*</li>
+<li><input disabled="" type="checkbox"> 06-考拉布局-整体和中间布局（掌握）*</li>
+<li><input disabled="" type="checkbox"> 07-考拉布局-右侧的布局方案（理解）*</li>
+</ul>
+<h4 id="DAY010-EX2-HTML-CSS阶段练习（网易云音乐一）"><a href="#DAY010-EX2-HTML-CSS阶段练习（网易云音乐一）" class="headerlink" title="DAY010-EX2 HTML-CSS阶段练习（网易云音乐一）"></a>DAY010-EX2 HTML-CSS阶段练习（网易云音乐一）</h4><ul>
+<li><input disabled="" type="checkbox"> 01-网易云-开发思路分析（理解）</li>
+<li><input disabled="" type="checkbox"> 02-网易云-top-整体布局（掌握）</li>
+<li><input disabled="" type="checkbox"> 03-网易云-top-logo的设置（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-行高对行内非替换元素的作用（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-网易云-top-list展示效果（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-网易云-top-右侧内容布局（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-网易云-top-导航的实现（掌握）</li>
+</ul>
+<h4 id="DAY010-EX3-HTML-CSS阶段练习（网易云音乐二）"><a href="#DAY010-EX3-HTML-CSS阶段练习（网易云音乐二）" class="headerlink" title="DAY010-EX3 HTML-CSS阶段练习（网易云音乐二）"></a>DAY010-EX3 HTML-CSS阶段练习（网易云音乐二）</h4><ul>
+<li><input disabled="" type="checkbox"> 01-网易云-banner-布局图片展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 02-网易云-banner-轮播图指示器（掌握）</li>
+<li><input disabled="" type="checkbox"> 03-网易云-banner-客户端下载展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-网易云-banner-左右控制按钮（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-网易云-main整体布局和登录（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-顶部区域小bug解析（理解）</li>
+<li><input disabled="" type="checkbox"> 07-块级元素的inline-block的显示问题（了解）</li>
+</ul>
+<h4 id="DAY010-EX4-HTML-CSS阶段练习（网易云音乐三）"><a href="#DAY010-EX4-HTML-CSS阶段练习（网易云音乐三）" class="headerlink" title="DAY010-EX4 HTML-CSS阶段练习（网易云音乐三）"></a>DAY010-EX4 HTML-CSS阶段练习（网易云音乐三）</h4><ul>
+<li><input disabled="" type="checkbox"> 01-网易云-右侧列表的header封装（掌握）</li>
+<li><input disabled="" type="checkbox"> 02-网易云-入驻高手列表展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 03-网易云-按钮背景的设置原理（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-网易云-按钮的背景封装（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-网易云-收藏按钮的封装实现（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-网易云-左右区域header封装（掌握）</li>
+</ul>
+<h4 id="DAY010-EX5-HTML-CSS阶段练习（网易云音乐四）"><a href="#DAY010-EX5-HTML-CSS阶段练习（网易云音乐四）" class="headerlink" title="DAY010-EX5 HTML-CSS阶段练习（网易云音乐四）"></a>DAY010-EX5 HTML-CSS阶段练习（网易云音乐四）</h4><ul>
+<li><input disabled="" type="checkbox"> 01-box-sizing的使用场景总结（掌握）</li>
+<li><input disabled="" type="checkbox"> 02-flex布局和white-space的冲突（理解）</li>
+<li><input disabled="" type="checkbox"> 03-a元素嵌套块级元素的解析（理解）</li>
+<li><input disabled="" type="checkbox"> 04-网易云-推荐列表的展示实现（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-网易云-新碟上架的结构处理（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-网易云-新碟上架轮播结构（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-网易云-新碟上架item封面处理（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-网易云-新碟上架item内容展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 09-网易云-新碟上架的控制按钮（掌握）</li>
+</ul>
+<h4 id="DAY010-EX6-HTML-CSS阶段练习（网易云音乐五）"><a href="#DAY010-EX6-HTML-CSS阶段练习（网易云音乐五）" class="headerlink" title="DAY010-EX6 HTML-CSS阶段练习（网易云音乐五）"></a>DAY010-EX6 HTML-CSS阶段练习（网易云音乐五）</h4><ul>
+<li><input disabled="" type="checkbox"> 01-网易云-排行榜的结构搭建（掌握）</li>
+<li><input disabled="" type="checkbox"> 02-网易云-排行榜封面展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 03-网易云-排行榜header中info展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-网易云-排行榜列表的展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-网易云-排行榜列表的操作按钮（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-网易云-排行榜查看全部（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-网易云音乐所有内容合并（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-内容总结（掌握）</li>
+</ul>
+<h4 id="DAY011-形变-动画-vertical-align"><a href="#DAY011-形变-动画-vertical-align" class="headerlink" title="DAY011 形变-动画-vertical-align"></a>DAY011 形变-动画-vertical-align</h4><ul>
+<li><input disabled="" type="checkbox"> 01-内容概述（了解）*</li>
+<li><input disabled="" type="checkbox"> 02-transform的介绍以及常见transform-function（掌握）*</li>
+<li><input disabled="" type="checkbox"> 03-transform-translate的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-元素水平和垂直居中的方案总结（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-transform-scale的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-transform-rotate的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-transform-origin改变形变原点（掌握）*</li>
+<li><input disabled="" type="checkbox"> 08-transform-skew和transfor（理解）</li>
+<li><input disabled="" type="checkbox"> 09-CSSTransition的介绍和可动画属性（掌握）*</li>
+<li><input disabled="" type="checkbox"> 10-CSSTransition的常见属性使用（掌握）*</li>
+<li><input disabled="" type="checkbox"> 11-transform-transla-tra（理解）</li>
+<li><input disabled="" type="checkbox"> 12-元素的宽度和高度变化问题（理解）</li>
+<li><input disabled="" type="checkbox"> 13-transition动画的缺点以及Animat（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-keyframes和animation的序列帧（掌握）</li>
+<li><input disabled="" type="checkbox"> 15-块级元素中行盒的概念和作用（理解）</li>
+<li><input disabled="" type="checkbox"> 16-行内级元素在行盒中baseline对齐（理解）</li>
+<li><input disabled="" type="checkbox"> 17-（理解）*</li>
+</ul>
+<h4 id="DAY012-CSS整体内容回顾-王者荣耀项目实战一"><a href="#DAY012-CSS整体内容回顾-王者荣耀项目实战一" class="headerlink" title="DAY012 CSS整体内容回顾-王者荣耀项目实战一"></a>DAY012 CSS整体内容回顾-王者荣耀项目实战一</h4><ul>
+<li><input disabled="" type="checkbox"> 01-vertical-align的其他值和居中问题（理解）</li>
+<li><input disabled="" type="checkbox"> 02-行内块级元素的居中和分离现象（理解）</li>
+<li><input disabled="" type="checkbox"> 03-CSS整体内容回顾（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-项目实战-代码规范说明（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-项目实战-CSS编写顺序整理（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-项目实战-组件化开发思想（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-王者荣耀-top-整体布局完成（掌握）*</li>
+<li><input disabled="" type="checkbox"> 08-王者荣耀-top-top-left展示实现（掌握）</li>
+<li><input disabled="" type="checkbox"> 09-王者荣耀-top-top-right展示实现（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-王者荣耀-header-整体布局实现（掌握）*</li>
+<li><input disabled="" type="checkbox"> 11-王者荣耀-header-logo展示实现（掌握）</li>
+<li><input disabled="" type="checkbox"> 12-王者荣耀-header-导航展示实现（掌握）</li>
+<li><input disabled="" type="checkbox"> 13-王者荣耀-header-搜索和登录展示实现（掌握）*</li>
+<li><input disabled="" type="checkbox"> 14-王者荣耀-main-news区域整体布局（掌握）*</li>
+<li><input disabled="" type="checkbox"> 15-王者荣耀-main-news下载区域实现（掌握）</li>
+<li><input disabled="" type="checkbox"> 16-内容回顾（理解）*</li>
+</ul>
+<h4 id="DAY013-CSS整体内容回顾-王者荣耀项目实战二"><a href="#DAY013-CSS整体内容回顾-王者荣耀项目实战二" class="headerlink" title="DAY013 CSS整体内容回顾-王者荣耀项目实战二"></a>DAY013 CSS整体内容回顾-王者荣耀项目实战二</h4><ul>
+<li><input disabled="" type="checkbox"> 01-王者荣耀-main-banner展示实现（掌握）*</li>
+<li><input disabled="" type="checkbox"> 02-王者荣耀-main-news结构搭建和背景（掌握）</li>
+<li><input disabled="" type="checkbox"> 03-王者荣耀-main-news-titles展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-王者荣耀-main-titles-border（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-王者荣耀-main-news-notice实现（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-王者荣耀-main-news-list实现（掌握）*</li>
+<li><input disabled="" type="checkbox"> 07-王者荣耀-新闻图标的封装过程（掌握）*</li>
+<li><input disabled="" type="checkbox"> 08-王者荣耀-main-入口的展示实现（掌握）*</li>
+<li><input disabled="" type="checkbox"> 09-王者荣耀-main-内容区域划分和header实现（掌握）*</li>
+<li><input disabled="" type="checkbox"> 10-王者荣耀-main-tab-control的封装过程（掌握）*</li>
+<li><input disabled="" type="checkbox"> 11-王者荣耀-main-tab-keyword的封装过程（掌握）*</li>
+<li><input disabled="" type="checkbox"> 12-王者荣耀-main-video-item封装01（掌握）*</li>
+<li><input disabled="" type="checkbox"> 13-王者荣耀-main-video-item封装（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-王者荣耀-main-video-item动画补（掌握）</li>
+<li><input disabled="" type="checkbox"> 15-王者荣耀-main-video-list的展示（掌握）*</li>
+<li><input disabled="" type="checkbox"> 16-王者荣耀-main-赛事中心tab-control（掌握）*</li>
+<li><input disabled="" type="checkbox"> 17-王者荣耀-main-赛事中心是新闻展示（掌握）*</li>
+<li><input disabled="" type="checkbox"> 18-内容回顾（理解）</li>
+</ul>
+<h4 id="DAY014-CSS整体内容回顾-王者荣耀项目实战三"><a href="#DAY014-CSS整体内容回顾-王者荣耀项目实战三" class="headerlink" title="DAY014 CSS整体内容回顾-王者荣耀项目实战三"></a>DAY014 CSS整体内容回顾-王者荣耀项目实战三</h4><ul>
+<li><input disabled="" type="checkbox"> 01-王者荣耀-main-赛事新闻列表实现（掌握）*</li>
+<li><input disabled="" type="checkbox"> 02-王者荣耀-main-hero区域头部实现（掌握）*</li>
+<li><input disabled="" type="checkbox"> 03-王者荣耀-main-hero新英雄展示（掌握）*</li>
+<li><input disabled="" type="checkbox"> 04-王者荣耀-main-hero英雄列表展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-王者荣耀-main-kpl赛程头部展示（掌握）*</li>
+<li><input disabled="" type="checkbox"> 06-王者荣耀-main-kpl赛程安排展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-王者荣耀-hover状态显示的嵌套逻辑（掌握）*</li>
+<li><input disabled="" type="checkbox"> 08-王者荣耀-top广告的展示和隐藏（掌握）</li>
+<li><input disabled="" type="checkbox"> 09-王者荣耀-top排行榜展示过程（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-王者荣耀-header下拉菜单的展示（掌握）*</li>
+<li><input disabled="" type="checkbox"> 11-王者荣耀-header下拉菜单内容展示（掌握）*</li>
+<li><input disabled="" type="checkbox"> 12-王者荣耀-right-nav的整体搭建（掌握）*</li>
+<li><input disabled="" type="checkbox"> 13-王者荣耀-right-nav导航列表展示（掌握）*</li>
+<li><input disabled="" type="checkbox"> 14-王者荣耀-模块合并过程01（掌握）*</li>
+<li><input disabled="" type="checkbox"> 15-王者荣耀-模块合并过程02（掌握）*</li>
+<li><input disabled="" type="checkbox"> 16-王者荣耀-整站补充-meta元素（掌握）*</li>
+<li><input disabled="" type="checkbox"> 17-王者荣耀-整站补充-link和charset（掌握）*</li>
+<li><input disabled="" type="checkbox"> 18-内容回顾（理解）</li>
+</ul>
+<h4 id="DAY015-HTML5新增内容-CSS函数-BFC-媒体查询"><a href="#DAY015-HTML5新增内容-CSS函数-BFC-媒体查询" class="headerlink" title="DAY015 HTML5新增内容-CSS函数-BFC-媒体查询"></a>DAY015 HTML5新增内容-CSS函数-BFC-媒体查询</h4><ul>
+<li><input disabled="" type="checkbox"> 01-王者荣耀-网页缩小的问题处理（掌握）</li>
+<li><input disabled="" type="checkbox"> 02-内容说明（了解）*</li>
+<li><input disabled="" type="checkbox"> 03-HTML5新增-语义化元素（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-HTML5新增-video元素的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-HTML5新增-audio元素的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-HTML5新增-input额外拓展（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-HTML5新增-全局属性data（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-white-space和text-overflow（了解）</li>
+<li><input disabled="" type="checkbox"> 09-CSS函数补充-var函数和定义变量（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-CSS函数补充-calc函数的使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 11-CSS函数补充-blur函数的使用（理解）</li>
+<li><input disabled="" type="checkbox"> 12-CSS函数补充-gradient函数的使用（理解）</li>
+<li><input disabled="" type="checkbox"> 13-浏览器前缀的前世今生（理解）</li>
+<li><input disabled="" type="checkbox"> 14-BFC官网阅读和BFC解决折叠问题（理解）</li>
+<li><input disabled="" type="checkbox"> 15-BFC官方阅读和BFC解决浮动高度塌陷（理解）</li>
+<li><input disabled="" type="checkbox"> 16-媒体查询-媒体查询的三种使用方式（掌握）</li>
+<li><input disabled="" type="checkbox"> 17-媒体查询-媒体查询中各种概念理解（掌握）</li>
+<li><input disabled="" type="checkbox"> 18-媒体查询-移动端适配的案例练习（掌握）</li>
+<li><input disabled="" type="checkbox"> 19-内容回顾（理解）</li>
+</ul>
+<h4 id="DAY016-CSS单位-CSS预处理器-移动端视口"><a href="#DAY016-CSS单位-CSS预处理器-移动端视口" class="headerlink" title="DAY016 CSS单位-CSS预处理器-移动端视口"></a>DAY016 CSS单位-CSS预处理器-移动端视口</h4><ul>
+<li><input disabled="" type="checkbox"> 01-内容概述-绝对和相对单位（理解）</li>
+<li><input disabled="" type="checkbox"> 02-相对单位-rem-vw-wh（掌握）</li>
+<li><input disabled="" type="checkbox"> 03-像素的理解-物理-逻辑-CSS像素（理解）</li>
+<li><input disabled="" type="checkbox"> 04-两个概念-DPR-PPI（理解）</li>
+<li><input disabled="" type="checkbox"> 05-CSS的痛点以及常见的CSS预处理器 （理解）</li>
+<li><input disabled="" type="checkbox"> 06-Less语法的编写和编译成CSS的方案（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-Less语法-兼容CSS-变量-嵌套（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-Less语法-嵌套中的and符号使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 09-Less语法-and符号的练习使用（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-Less语法-运算的使用（了解）</li>
+<li><input disabled="" type="checkbox"> 11-Less语法混入基本使用和高级用法（了解）</li>
+<li><input disabled="" type="checkbox"> 12-Less语法继承-函数-作用域-注释-导入（理解）</li>
+<li><input disabled="" type="checkbox"> 13-Sass和Scss的介绍和学习（了解）</li>
+<li><input disabled="" type="checkbox"> 14-移动端适配的理解和开发模式（理解）</li>
+<li><input disabled="" type="checkbox"> 15-移动视口-布局视口和视觉视口（掌握）</li>
+<li><input disabled="" type="checkbox"> 16-移动视口-理想视口和viewport属性设置（掌握）</li>
+<li><input disabled="" type="checkbox"> 17-内容回顾（理解）</li>
+</ul>
+<h4 id="DAY017-移动端适配方案-海购移动端项目"><a href="#DAY017-移动端适配方案-海购移动端项目" class="headerlink" title="DAY017 移动端适配方案-海购移动端项目"></a>DAY017 移动端适配方案-海购移动端项目</h4><ul>
+<li><input disabled="" type="checkbox"> 01-移动端适配-各个方案解析（掌握）</li>
+<li><input disabled="" type="checkbox"> 02-移动端适配-rem方案-媒体查询设置font（掌握）</li>
+<li><input disabled="" type="checkbox"> 03-移动端适配-rem方案-编写js动态font（掌握）</li>
+<li><input disabled="" type="checkbox"> 04-移动端适配-rem方案-lib-flexbl（掌握）</li>
+<li><input disabled="" type="checkbox"> 05-移动端适配-rem单位-px转成rem的方案（掌握）</li>
+<li><input disabled="" type="checkbox"> 06-移动端适配-vw-vw单位介绍和rem的对比（掌握）</li>
+<li><input disabled="" type="checkbox"> 07-移动端适配-vw-px转成vw的方案（掌握）</li>
+<li><input disabled="" type="checkbox"> 08-grid布局-介绍-概念-常见属性（掌握）</li>
+<li><input disabled="" type="checkbox"> 09-海购-index搭建和head配置（掌握）</li>
+<li><input disabled="" type="checkbox"> 10-海购-reset重置和目录结构（掌握）</li>
+<li><input disabled="" type="checkbox"> 11-海购-项目tabbar的搭建过程（掌握）</li>
+<li><input disabled="" type="checkbox"> 12-海购-download布局和vw转换（掌握）</li>
+<li><input disabled="" type="checkbox"> 13-海购-download袭细节布局处理（掌握）</li>
+<li><input disabled="" type="checkbox"> 14-海购-subsidy的header展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 15-海购-subsidy的list展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 16-海购-category类别的展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 17-海购-Product整体布局展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 18-海购-Product中item内容展示（掌握）</li>
+<li><input disabled="" type="checkbox"> 19-内容回顾（理解）</li>
+</ul>
+
+    </article>
+    <!-- license -->
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2022-03-06/0306-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E7%AC%94%E8%AE%B0/" title="统计学 Note">
+                    <div class="prevTitle">统计学 Note</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+     
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/wechat.jpeg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://weibo.com/isisiwish" class="iconfont-archer weibo" target="_blank" title=weibo></a>
+            
+        
+    
+        
+            
+                <a href="https://www.zhihu.com/people/i.9ish" class="iconfont-archer zhihu" target="_blank" title=zhihu></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/isisiwish" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB"><span class="toc-number">1.</span> <span class="toc-text">一、前端知识体系</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY001-%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91-HTML%E7%BB%93%E6%9E%84-%E5%85%83%E7%B4%A0%E5%89%96%E6%9E%90"><span class="toc-number">1.1.</span> <span class="toc-text">DAY001 软件开发-HTML结构-元素剖析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY002-HTML%E7%BB%93%E6%9E%84-body%E5%85%83%E7%B4%A0-%E9%A2%9D%E5%A4%96%E7%9F%A5%E8%AF%86%E8%A1%A5%E5%85%85"><span class="toc-number">1.2.</span> <span class="toc-text">DAY002 HTML结构-body元素-额外知识补充</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY003-%E7%BC%96%E5%86%99%E6%A0%B7%E5%BC%8F-CSS%E5%B1%9E%E6%80%A7-Chrome%E8%B0%83%E8%AF%95-%E6%B5%8F%E8%A7%88%E5%99%A8%E6%B8%B2%E6%9F%93"><span class="toc-number">1.3.</span> <span class="toc-text">DAY003 编写样式-CSS属性-Chrome调试-浏览器渲染</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY004-CSS%E6%96%87%E6%9C%AC%E5%B1%9E%E6%80%A7-CSS%E5%AD%97%E4%BD%93%E5%B1%9E%E6%80%A7-CSS%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">1.4.</span> <span class="toc-text">DAY004 CSS文本属性-CSS字体属性-CSS选择器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY005-CSS%E7%9A%84%E7%BB%A7%E6%89%BF-%E5%B1%82%E5%8F%A0-%E7%B1%BB%E5%9E%8B%E5%92%8CCSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B"><span class="toc-number">1.5.</span> <span class="toc-text">DAY005 CSS的继承-层叠-类型和CSS盒子模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY006-CSS%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B-CSS%E8%AE%BE%E7%BD%AE%E8%83%8C%E6%99%AF"><span class="toc-number">1.6.</span> <span class="toc-text">DAY006 CSS盒子模型-CSS设置背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY007-HTML%E9%AB%98%E7%BA%A7%E5%88%97%E8%A1%A8-%E8%A1%A8%E5%8D%95-%E8%A1%A8%E6%A0%BC%E5%85%83%E7%B4%A0%E5%92%8CEmmet"><span class="toc-number">1.7.</span> <span class="toc-text">DAY007 HTML高级列表-表单-表格元素和Emmet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY008-%E7%BB%93%E6%9E%84%E4%BC%AA%E7%B1%BB-%E5%9B%BE%E5%BD%A2-%E5%AD%97%E4%BD%93%E5%9B%BE%E6%A0%87-%E5%85%83%E7%B4%A0%E5%AE%9A%E4%BD%8D"><span class="toc-number">1.8.</span> <span class="toc-text">DAY008 结构伪类-图形-字体图标-元素定位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY009-CSS%E5%85%83%E7%B4%A0%E7%9A%84%E5%AE%9A%E4%BD%8D%E5%92%8C%E6%B5%AE%E5%8A%A8"><span class="toc-number">1.9.</span> <span class="toc-text">DAY009 CSS元素的定位和浮动</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY010-CSS%E7%9A%84%E6%B5%AE%E5%8A%A8%E5%92%8Cflex%E5%B8%83%E5%B1%80"><span class="toc-number">1.10.</span> <span class="toc-text">DAY010 CSS的浮动和flex布局</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY010-EX1-HTML-CSS%E9%98%B6%E6%AE%B5%E7%BB%83%E4%B9%A0%EF%BC%88%E4%BB%BF%E5%B0%8F%E7%B1%B3%E5%92%8C%E8%80%83%E6%8B%89%E9%A1%B5%E9%9D%A2%EF%BC%89"><span class="toc-number">1.11.</span> <span class="toc-text">DAY010-EX1 HTML-CSS阶段练习（仿小米和考拉页面）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY010-EX2-HTML-CSS%E9%98%B6%E6%AE%B5%E7%BB%83%E4%B9%A0%EF%BC%88%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%80%EF%BC%89"><span class="toc-number">1.12.</span> <span class="toc-text">DAY010-EX2 HTML-CSS阶段练习（网易云音乐一）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY010-EX3-HTML-CSS%E9%98%B6%E6%AE%B5%E7%BB%83%E4%B9%A0%EF%BC%88%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%BA%8C%EF%BC%89"><span class="toc-number">1.13.</span> <span class="toc-text">DAY010-EX3 HTML-CSS阶段练习（网易云音乐二）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY010-EX4-HTML-CSS%E9%98%B6%E6%AE%B5%E7%BB%83%E4%B9%A0%EF%BC%88%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%B8%89%EF%BC%89"><span class="toc-number">1.14.</span> <span class="toc-text">DAY010-EX4 HTML-CSS阶段练习（网易云音乐三）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY010-EX5-HTML-CSS%E9%98%B6%E6%AE%B5%E7%BB%83%E4%B9%A0%EF%BC%88%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E5%9B%9B%EF%BC%89"><span class="toc-number">1.15.</span> <span class="toc-text">DAY010-EX5 HTML-CSS阶段练习（网易云音乐四）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY010-EX6-HTML-CSS%E9%98%B6%E6%AE%B5%E7%BB%83%E4%B9%A0%EF%BC%88%E7%BD%91%E6%98%93%E4%BA%91%E9%9F%B3%E4%B9%90%E4%BA%94%EF%BC%89"><span class="toc-number">1.16.</span> <span class="toc-text">DAY010-EX6 HTML-CSS阶段练习（网易云音乐五）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY011-%E5%BD%A2%E5%8F%98-%E5%8A%A8%E7%94%BB-vertical-align"><span class="toc-number">1.17.</span> <span class="toc-text">DAY011 形变-动画-vertical-align</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY012-CSS%E6%95%B4%E4%BD%93%E5%86%85%E5%AE%B9%E5%9B%9E%E9%A1%BE-%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E4%B8%80"><span class="toc-number">1.18.</span> <span class="toc-text">DAY012 CSS整体内容回顾-王者荣耀项目实战一</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY013-CSS%E6%95%B4%E4%BD%93%E5%86%85%E5%AE%B9%E5%9B%9E%E9%A1%BE-%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E4%BA%8C"><span class="toc-number">1.19.</span> <span class="toc-text">DAY013 CSS整体内容回顾-王者荣耀项目实战二</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY014-CSS%E6%95%B4%E4%BD%93%E5%86%85%E5%AE%B9%E5%9B%9E%E9%A1%BE-%E7%8E%8B%E8%80%85%E8%8D%A3%E8%80%80%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98%E4%B8%89"><span class="toc-number">1.20.</span> <span class="toc-text">DAY014 CSS整体内容回顾-王者荣耀项目实战三</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY015-HTML5%E6%96%B0%E5%A2%9E%E5%86%85%E5%AE%B9-CSS%E5%87%BD%E6%95%B0-BFC-%E5%AA%92%E4%BD%93%E6%9F%A5%E8%AF%A2"><span class="toc-number">1.21.</span> <span class="toc-text">DAY015 HTML5新增内容-CSS函数-BFC-媒体查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY016-CSS%E5%8D%95%E4%BD%8D-CSS%E9%A2%84%E5%A4%84%E7%90%86%E5%99%A8-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E8%A7%86%E5%8F%A3"><span class="toc-number">1.22.</span> <span class="toc-text">DAY016 CSS单位-CSS预处理器-移动端视口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DAY017-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D%E6%96%B9%E6%A1%88-%E6%B5%B7%E8%B4%AD%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%A1%B9%E7%9B%AE"><span class="toc-number">1.23.</span> <span class="toc-text">DAY017 移动端适配方案-海购移动端项目</span></a></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 3
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2022-05-01/0430-FE/">前端系统学习路径</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span>
+            <a class="archive-post-title" href="/2022-03-06/0306-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E7%AC%94%E8%AE%B0/">统计学 Note</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2022-02-17/0217-blogging/">胡言乱语</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="NOTE">
+            <span class="iconfont-archer">&#xe60a;</span>
+            NOTE
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="OTHER">
+            <span class="iconfont-archer">&#xe60a;</span>
+            OTHER
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="FE">
+            <span class="iconfont-archer">&#xe60a;</span>
+            FE
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "isisiwish"
+    }
+</script>
+
+        <!-- main func -->
+        <script src="/scripts/main.js"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js" async></script>    
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

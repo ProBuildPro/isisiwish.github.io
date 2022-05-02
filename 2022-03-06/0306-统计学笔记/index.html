@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="isisiwish">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="isisiwish">
+    
+        <meta name="keywords" content="isisiwish">
+    
+    <meta name="description" content="">
+    <meta name="description" content="统计学概述统计学处理的主体为数据，原则上可以将任意事物都抽象为数据的表示，将数据进一步加工和处理可以进一步获取到客观内在的数量规律性（抛硬币，正面&#x2F;反面&#x3D;常数），并科学的对结果进行决策和预测。 统计思维，用相对简单的特征来尽量准确的刻画复杂的真实情况，允许对不确定性进行量化。需要重点培养建模和解决问题的能力。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="统计学 Note">
+<meta property="og:url" content="http://isisiwish.top/2022-03-06/0306-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E7%AC%94%E8%AE%B0/">
+<meta property="og:site_name" content="isisiwish&#39;s Note">
+<meta property="og:description" content="统计学概述统计学处理的主体为数据，原则上可以将任意事物都抽象为数据的表示，将数据进一步加工和处理可以进一步获取到客观内在的数量规律性（抛硬币，正面&#x2F;反面&#x3D;常数），并科学的对结果进行决策和预测。 统计思维，用相对简单的特征来尽量准确的刻画复杂的真实情况，允许对不确定性进行量化。需要重点培养建模和解决问题的能力。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/isisiwish/blog-img-repo/img/0306_scale_measure.png">
+<meta property="article:published_time" content="2022-03-06T08:20:18.000Z">
+<meta property="article:modified_time" content="2022-04-28T15:51:36.144Z">
+<meta property="article:author" content="isisiwish">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/isisiwish/blog-img-repo/img/0306_scale_measure.png">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/null">
+    
+    <title>统计学 Note · isisiwish&#39;s Note</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=202107" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=202107" as="style">
+    <link rel="stylesheet" href="/css/mobile.css?v=202107" media="(max-width: 980px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=202107" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=202107" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/js/all.min.js" data-auto-replace-svg="nest"></script>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?2f8bed701063a88bd8b3746c88bd04a1";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+    <!-- 谷歌统计  -->
+    
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            ga('create', 'UA-85678957-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>isisiwish's Note</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">isisiwish&#39;s Note</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">统计学 Note</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- dark mode -->
+        <script src="/scripts/dark.js"></script>
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                统计学 Note
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">1.3k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2022/03/06</span>
+                    <!-- busuanzi -->
+                    
+                    <!-- 文章分享 -->
+                    <!--
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                    -->
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+        
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="统计学概述"><a href="#统计学概述" class="headerlink" title="统计学概述"></a>统计学概述</h3><p>统计学处理的主体为<code>数据</code>，原则上可以将任意事物都<code>抽象为数据</code>的表示，将数据进一步加工和处理可以进一步获取到客观内在的<code>数量规律性</code>（抛硬币，<code>正面/反面=常数</code>），并科学的对结果进行<code>决策和预测</code>。</p>
+<p>统计思维，用相对简单的<code>特征</code>来尽量<code>准确</code>的刻画复杂的真实情况，允许对<code>不确定性</code>进行<code>量化</code>。需要重点培养建模和解决问题的能力。</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">收集所有相关信息</span><br><span class="line">1. 难以实现--&gt;抽样</span><br><span class="line">2. 海量数据难以理解和交流--&gt;提取特征（众数、中位数、方差）</span><br><span class="line">3. 结果为非真值--&gt;置信区间及信心值</span><br><span class="line">4. 结果异常/偏差--&gt;幸存者偏差（小概率事件）</span><br></pre></td></tr></table></figure>
+
+<p>通过统计学，可以使用简单的方式准确描述复杂问题（描述性统计）；在具有不确定的情况下做出决策（统计推断）；从数据学习，发现客观事物的内在规律，并指导决策；基于已知情况对未来进行预测（机器学习）。</p>
+<p>机器学习为统计学和计算机的交叉学科，统计学注重可解释性、本质和机制，机器学习注重可应用性。通过统计学对模型进行表征（特征工程），并提高泛化能力。</p>
+<h3 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h3><p>数据是由变量组成的，一个变量应该包含至少2个不同的取值，否则可以称之为常数。</p>
+<p>定性/分类变量，例如性别、颜色，描述为性质上的差异，而非数值上的差异，根据数据属性，可以为无序的也可能存在等级上的差异和排序。</p>
+<p>定量/数值变量，身高、体重，描述为某一类数据的数值，可以进行是否相等的比较，有顺序，可以进行数学运算。</p>
+<p>通常会把数据整理成表格（数据矩阵data matrix），一行为一次观测，一列是一个变量</p>
+<table>
+<thead>
+<tr>
+<th>性别</th>
+<th align="left">教育程度</th>
+<th align="left">出生年份</th>
+<th>身高</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>女</td>
+<td align="left">本科</td>
+<td align="left">1999</td>
+<td>165cm</td>
+</tr>
+<tr>
+<td>男</td>
+<td align="left">本科</td>
+<td align="left">2000</td>
+<td>172cm</td>
+</tr>
+<tr>
+<td>女</td>
+<td align="left">研究生</td>
+<td align="left">1996</td>
+<td>159cm</td>
+</tr>
+</tbody></table>
+<p>将变量通过矩阵划分的足够细致，可以进行更科学和细粒度的评价，不同的评价具有测量某种特定数据的能力。</p>
+<p>抽象数字系统有4个重要的属性</p>
+<ol>
+<li>每一个数字有其独特的含义identity，例如性别、颜色</li>
+<li>数字具有从小到大的固有顺序magnitude，例如教育程度、评价</li>
+<li>任意位置的单位间距是相同的equal intervals，例如年份、温度</li>
+<li>零表示被测量的属性不存在true zero，例如身高、体重（体重为0说明数据不存在）</li>
+</ol>
+<h3 id="测量尺度"><a href="#测量尺度" class="headerlink" title="测量尺度"></a>测量尺度</h3><ul>
+<li>测量是根据一定的规则，把数字numbers分配给观测observations，例如根据一定的规则，把160这个数字分配给某个人的身高</li>
+<li>把数字分配给观测的方式，决定了测量尺度scale of measurement</li>
+<li>每个测量尺度代表了抽象数字系统的特点属性或者属性集合</li>
+</ul>
+<h4 id="名目尺度（nominal-scale）"><a href="#名目尺度（nominal-scale）" class="headerlink" title="名目尺度（nominal scale）"></a>名目尺度（nominal scale）</h4><p>名目尺度是根据事物的特征对其进行分类的一种尺度。</p>
+<p>它只具备抽象数字系统中的第一个属性，即每一个数字有其独特的含义，例如性别、颜色。无序分类变量与名目变量几乎等价。</p>
+<h4 id="次序尺度（ordinal-scale）"><a href="#次序尺度（ordinal-scale）" class="headerlink" title="次序尺度（ordinal scale）"></a>次序尺度（ordinal scale）</h4><p>次序尺度是根据事物的特征对其进行等级排序的一种尺度。</p>
+<p>它具备抽象数字系统的两个属性，1.每个数字有其独特的含义，2.数字具有从小到大的固有顺序，例如教育程度、评价等。</p>
+<h4 id="等距尺度（interval-scale）"><a href="#等距尺度（interval-scale）" class="headerlink" title="等距尺度（interval scale）"></a>等距尺度（interval scale）</h4><p>等距尺度是指数值间的单位间隔是等距的一种尺度。</p>
+<p>在次序尺度的基础上，还有拥有<code>任意位置的单位间距是相同的</code>，例如年份、温度、时间等。</p>
+<h4 id="等比尺度（ratio-scale）"><a href="#等比尺度（ratio-scale）" class="headerlink" title="等比尺度（ratio scale）"></a>等比尺度（ratio scale）</h4><p>等比尺度是具有等距尺度的所有特性，并且零点有意义的尺度，可以进行乘除运算，例如身高、体重、年龄。</p>
+<h4 id="测量尺度的重要性"><a href="#测量尺度的重要性" class="headerlink" title="测量尺度的重要性"></a>测量尺度的重要性</h4><p>测量尺度决定了可以使用的逻辑与数学运算，以及统计方法。</p>
+<table>
+<thead>
+<tr>
+<th>尺度</th>
+<th align="left">举例</th>
+<th>逻辑与数学运算</th>
+<th>类别</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>名目</td>
+<td align="left">性别、颜色</td>
+<td>=、!=</td>
+<td>定性、无序分类变量</td>
+</tr>
+<tr>
+<td>次序</td>
+<td align="left">教育程度、评价</td>
+<td>=、!=、&gt;、&lt;</td>
+<td>定性、有序分类变量</td>
+</tr>
+<tr>
+<td>等距</td>
+<td align="left">温度、年份、时间</td>
+<td>=、!=、&gt;、&lt;、+、-</td>
+<td>定量、数值变量</td>
+</tr>
+<tr>
+<td>等比</td>
+<td align="left">身高、体重、年龄</td>
+<td>=、!=、&gt;、&lt;、+、-、*、/</td>
+<td>定量、数值变量</td>
+</tr>
+</tbody></table>
+<p>数值变量（等距、等比）还能够进行离散型和连续型的划分。</p>
+<ul>
+<li>离散型数值变量，一个数值变量的取值是间断的，两个取值之间再没有其他的值（不可以无限的细分），例如跑一次硬币的结果，只能为正面或反面（不计算立住的状态）</li>
+<li>连续型数值变量，任意两个取值之间都可以进行无限的细分，例如身高 </li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/isisiwish/blog-img-repo/img/0306_scale_measure.png"></p>
+<p><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%B8%AC%E9%87%8F%E5%B0%BA%E5%BA%A6"></a></p>
+
+    </article>
+    <!-- license -->
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2022-05-01/0430-FE/" title="前端系统学习路径">
+                    <div class="nextTitle">前端系统学习路径</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2022-02-17/0217-blogging/" title="胡言乱语">
+                    <div class="prevTitle">胡言乱语</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+     
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/wechat.jpeg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://weibo.com/isisiwish" class="iconfont-archer weibo" target="_blank" title=weibo></a>
+            
+        
+    
+        
+            
+                <a href="https://www.zhihu.com/people/i.9ish" class="iconfont-archer zhihu" target="_blank" title=zhihu></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/isisiwish" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E5%AD%A6%E6%A6%82%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">统计学概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE"><span class="toc-number">2.</span> <span class="toc-text">数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E9%87%8F%E5%B0%BA%E5%BA%A6"><span class="toc-number">3.</span> <span class="toc-text">测量尺度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8D%E7%9B%AE%E5%B0%BA%E5%BA%A6%EF%BC%88nominal-scale%EF%BC%89"><span class="toc-number">3.1.</span> <span class="toc-text">名目尺度（nominal scale）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AC%A1%E5%BA%8F%E5%B0%BA%E5%BA%A6%EF%BC%88ordinal-scale%EF%BC%89"><span class="toc-number">3.2.</span> <span class="toc-text">次序尺度（ordinal scale）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%89%E8%B7%9D%E5%B0%BA%E5%BA%A6%EF%BC%88interval-scale%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">等距尺度（interval scale）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%89%E6%AF%94%E5%B0%BA%E5%BA%A6%EF%BC%88ratio-scale%EF%BC%89"><span class="toc-number">3.4.</span> <span class="toc-text">等比尺度（ratio scale）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E9%87%8F%E5%B0%BA%E5%BA%A6%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7"><span class="toc-number">3.5.</span> <span class="toc-text">测量尺度的重要性</span></a></li></ol></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 3
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2022-05-01/0430-FE/">前端系统学习路径</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span>
+            <a class="archive-post-title" href="/2022-03-06/0306-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E7%AC%94%E8%AE%B0/">统计学 Note</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2022-02-17/0217-blogging/">胡言乱语</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="NOTE">
+            <span class="iconfont-archer">&#xe60a;</span>
+            NOTE
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="OTHER">
+            <span class="iconfont-archer">&#xe60a;</span>
+            OTHER
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="FE">
+            <span class="iconfont-archer">&#xe60a;</span>
+            FE
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "isisiwish"
+    }
+</script>
+
+        <!-- main func -->
+        <script src="/scripts/main.js"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js" async></script>    
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>

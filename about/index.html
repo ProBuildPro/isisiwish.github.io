@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="isisiwish">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="isisiwish">
+    
+        <meta name="keywords" content="isisiwish">
+    
+    <meta name="description" content="">
+    <meta name="description" content="通用美团技术团队https:&#x2F;&#x2F;tech.meituan.com&#x2F; 字节跳动技术团队https:&#x2F;&#x2F;juejin.cn&#x2F;user&#x2F;1838039172387262 数据库内核月报http:&#x2F;&#x2F;mysql.taobao.org&#x2F;monthly&#x2F; DEV Communityhttps:&#x2F;&#x2F;dev.to&#x2F; v2exhttps:&#x2F;&#x2F;www.v2ex.com&#x2F; 酷壳 - bloghttps:&#x2F;&#x2F;coolsh">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LINKS">
+<meta property="og:url" content="http://isisiwish.top/about/">
+<meta property="og:site_name" content="isisiwish&#39;s Note">
+<meta property="og:description" content="通用美团技术团队https:&#x2F;&#x2F;tech.meituan.com&#x2F; 字节跳动技术团队https:&#x2F;&#x2F;juejin.cn&#x2F;user&#x2F;1838039172387262 数据库内核月报http:&#x2F;&#x2F;mysql.taobao.org&#x2F;monthly&#x2F; DEV Communityhttps:&#x2F;&#x2F;dev.to&#x2F; v2exhttps:&#x2F;&#x2F;www.v2ex.com&#x2F; 酷壳 - bloghttps:&#x2F;&#x2F;coolsh">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-05-02T12:40:45.000Z">
+<meta property="article:modified_time" content="2022-05-02T12:42:11.019Z">
+<meta property="article:author" content="isisiwish">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/null">
+    
+    <title>LINKS · isisiwish&#39;s Note</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=202107" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=202107" as="style">
+    <link rel="stylesheet" href="/css/mobile.css?v=202107" media="(max-width: 980px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=202107" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=202107" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/js/all.min.js" data-auto-replace-svg="nest"></script>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+        <script>
+            var _hmt = _hmt || [];
+            (function () {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?2f8bed701063a88bd8b3746c88bd04a1";
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
+            })();
+        </script>
+    
+    <!-- 谷歌统计  -->
+    
+        <script>
+            (function (i, s, o, g, r, a, m) {
+                i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+            ga('create', 'UA-85678957-1', 'auto');
+            ga('send', 'pageview');
+        </script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>isisiwish's Note</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+</header>
+
+        <!-- dark mode -->
+        <script src="/scripts/dark.js"></script>
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+">
+    
+    <!-- 主页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+        
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h3 id="通用"><a href="#通用" class="headerlink" title="通用"></a>通用</h3><h5 id="美团技术团队"><a href="#美团技术团队" class="headerlink" title="美团技术团队"></a>美团技术团队</h5><p><a target="_blank" rel="noopener" href="https://tech.meituan.com/">https://tech.meituan.com/</a></p>
+<h5 id="字节跳动技术团队"><a href="#字节跳动技术团队" class="headerlink" title="字节跳动技术团队"></a>字节跳动技术团队</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/user/1838039172387262">https://juejin.cn/user/1838039172387262</a></p>
+<h5 id="数据库内核月报"><a href="#数据库内核月报" class="headerlink" title="数据库内核月报"></a>数据库内核月报</h5><p><a target="_blank" rel="noopener" href="http://mysql.taobao.org/monthly/">http://mysql.taobao.org/monthly/</a></p>
+<h5 id="DEV-Community"><a href="#DEV-Community" class="headerlink" title="DEV Community"></a>DEV Community</h5><p><a target="_blank" rel="noopener" href="https://dev.to/">https://dev.to/</a></p>
+<h5 id="v2ex"><a href="#v2ex" class="headerlink" title="v2ex"></a>v2ex</h5><p><a target="_blank" rel="noopener" href="https://www.v2ex.com/">https://www.v2ex.com/</a></p>
+<h5 id="酷壳-blog"><a href="#酷壳-blog" class="headerlink" title="酷壳 - blog"></a>酷壳 - blog</h5><p><a target="_blank" rel="noopener" href="https://coolshell.cn/">https://coolshell.cn/</a></p>
+<h5 id="MacTalk-blog"><a href="#MacTalk-blog" class="headerlink" title="MacTalk - blog"></a>MacTalk - blog</h5><p><a target="_blank" rel="noopener" href="http://macshuo.com/">http://macshuo.com/</a></p>
+<h5 id="黄健宏"><a href="#黄健宏" class="headerlink" title="黄健宏"></a>黄健宏</h5><p><a target="_blank" rel="noopener" href="https://blog.huangz.me/">https://blog.huangz.me/</a></p>
+<h5 id="阮一峰-blog"><a href="#阮一峰-blog" class="headerlink" title="阮一峰 - blog"></a>阮一峰 - blog</h5><p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/">https://www.ruanyifeng.com/blog/</a></p>
+<h5 id="云风-blog"><a href="#云风-blog" class="headerlink" title="云风 - blog"></a>云风 - blog</h5><p><a target="_blank" rel="noopener" href="https://blog.codingnow.com/">https://blog.codingnow.com/</a></p>
+<h5 id="draveness"><a href="#draveness" class="headerlink" title="draveness"></a>draveness</h5><p><a target="_blank" rel="noopener" href="https://draveness.me/">https://draveness.me/</a></p>
+<h5 id="SFLAQiu"><a href="#SFLAQiu" class="headerlink" title="SFLAQiu"></a>SFLAQiu</h5><p><a target="_blank" rel="noopener" href="https://blog.thankbabe.com/">https://blog.thankbabe.com/</a></p>
+<h5 id="Just-Carry-On"><a href="#Just-Carry-On" class="headerlink" title="Just Carry On"></a>Just Carry On</h5><p><a target="_blank" rel="noopener" href="https://ialloc.org/archives/">https://ialloc.org/archives/</a></p>
+<h5 id="Huang-Huang的博客"><a href="#Huang-Huang的博客" class="headerlink" title="Huang Huang的博客"></a>Huang Huang的博客</h5><p><a target="_blank" rel="noopener" href="https://mozillazg.com/">https://mozillazg.com/</a></p>
+<h5 id="b3log"><a href="#b3log" class="headerlink" title="b3log"></a>b3log</h5><p><a target="_blank" rel="noopener" href="https://88250.b3log.org/">https://88250.b3log.org/</a></p>
+<h5 id="柒’s-Blog"><a href="#柒’s-Blog" class="headerlink" title="柒’s Blog"></a>柒’s Blog</h5><p><a target="_blank" rel="noopener" href="https://blog.52itstyle.vip/archive.html">https://blog.52itstyle.vip/archive.html</a></p>
+<h5 id="漫漫路"><a href="#漫漫路" class="headerlink" title="漫漫路"></a>漫漫路</h5><p><a target="_blank" rel="noopener" href="https://www.lanindex.com/">https://www.lanindex.com/</a></p>
+<h5 id="灵感之源"><a href="#灵感之源" class="headerlink" title="灵感之源"></a>灵感之源</h5><p><a target="_blank" rel="noopener" href="https://kayow.com/">https://kayow.com/</a></p>
+<h5 id="Tom-Talk"><a href="#Tom-Talk" class="headerlink" title="Tom Talk"></a>Tom Talk</h5><p><a target="_blank" rel="noopener" href="https://work-jlsun.github.io/">https://work-jlsun.github.io/</a></p>
+<h5 id="Sharpdeep"><a href="#Sharpdeep" class="headerlink" title="Sharpdeep"></a>Sharpdeep</h5><p><a target="_blank" rel="noopener" href="http://sharpdeep.github.io/">http://sharpdeep.github.io/</a></p>
+<h5 id="wulfric"><a href="#wulfric" class="headerlink" title="wulfric"></a>wulfric</h5><p><a target="_blank" rel="noopener" href="https://wulfric.me/archive/">https://wulfric.me/archive/</a></p>
+<h5 id="人淡如菊"><a href="#人淡如菊" class="headerlink" title="人淡如菊"></a>人淡如菊</h5><p><a target="_blank" rel="noopener" href="https://www.panaihua.com/">https://www.panaihua.com/</a></p>
+<h5 id="翟志军"><a href="#翟志军" class="headerlink" title="翟志军"></a>翟志军</h5><p><a target="_blank" rel="noopener" href="http://showme.codes/">http://showme.codes/</a></p>
+<h5 id="CodingLabs"><a href="#CodingLabs" class="headerlink" title="CodingLabs"></a>CodingLabs</h5><p><a target="_blank" rel="noopener" href="http://blog.codinglabs.org/">http://blog.codinglabs.org/</a></p>
+<h5 id="峰云"><a href="#峰云" class="headerlink" title="峰云"></a>峰云</h5><p><a target="_blank" rel="noopener" href="https://xiaorui.cc/">https://xiaorui.cc/</a></p>
+<h5 id="须臾之学"><a href="#须臾之学" class="headerlink" title="须臾之学"></a>须臾之学</h5><p><a target="_blank" rel="noopener" href="https://blog.xizhibei.me/archives/">https://blog.xizhibei.me/archives/</a></p>
+<h5 id="the5fire"><a href="#the5fire" class="headerlink" title="the5fire"></a>the5fire</h5><p><a target="_blank" rel="noopener" href="https://www.the5fire.com/">https://www.the5fire.com/</a></p>
+<h5 id="melonshell"><a href="#melonshell" class="headerlink" title="melonshell"></a>melonshell</h5><p><a target="_blank" rel="noopener" href="https://melonshell.github.io/">https://melonshell.github.io/</a></p>
+<h3 id="FE"><a href="#FE" class="headerlink" title="FE"></a>FE</h3><h5 id="JavaScript-Weekly"><a href="#JavaScript-Weekly" class="headerlink" title="JavaScript Weekly"></a>JavaScript Weekly</h5><p><a target="_blank" rel="noopener" href="https://javascriptweekly.com/">https://javascriptweekly.com/</a></p>
+<h5 id="Web-Design-Weekly"><a href="#Web-Design-Weekly" class="headerlink" title="Web Design Weekly"></a>Web Design Weekly</h5><p><a target="_blank" rel="noopener" href="https://web-design-weekly.com/">https://web-design-weekly.com/</a></p>
+<h5 id="iOS-Weekly"><a href="#iOS-Weekly" class="headerlink" title="iOS-Weekly"></a>iOS-Weekly</h5><p><a target="_blank" rel="noopener" href="https://github.com/SwiftOldDriver/iOS-Weekly">https://github.com/SwiftOldDriver/iOS-Weekly</a></p>
+<h5 id="TNT-Weekly"><a href="#TNT-Weekly" class="headerlink" title="TNT-Weekly"></a>TNT-Weekly</h5><p><a target="_blank" rel="noopener" href="https://github.com/tnfe/TNT-Weekly">https://github.com/tnfe/TNT-Weekly</a></p>
+<h5 id="前端开发博客"><a href="#前端开发博客" class="headerlink" title="前端开发博客"></a>前端开发博客</h5><p><a target="_blank" rel="noopener" href="https://github.com/kujian/frontendDaily">https://github.com/kujian/frontendDaily</a></p>
+<h5 id="淘系前端团队（不更新）"><a href="#淘系前端团队（不更新）" class="headerlink" title="淘系前端团队（不更新）"></a>淘系前端团队（不更新）</h5><p><a target="_blank" rel="noopener" href="https://fed.taobao.org/blogs">https://fed.taobao.org/blogs</a></p>
+<h5 id="奇舞团（不更新）"><a href="#奇舞团（不更新）" class="headerlink" title="奇舞团（不更新）"></a>奇舞团（不更新）</h5><p><a target="_blank" rel="noopener" href="https://75.team/cate/article/">https://75.team/cate/article/</a></p>
+<h5 id="京东体验设计"><a href="#京东体验设计" class="headerlink" title="京东体验设计"></a>京东体验设计</h5><p><a target="_blank" rel="noopener" href="https://jelly.jd.com/articlelist/exp">https://jelly.jd.com/articlelist/exp</a></p>
+<h5 id="张鑫旭"><a href="#张鑫旭" class="headerlink" title="张鑫旭"></a>张鑫旭</h5><p><a target="_blank" rel="noopener" href="https://www.zhangxinxu.com/wordpress/">https://www.zhangxinxu.com/wordpress/</a></p>
+<h5 id="腾讯Alloy（不更新）"><a href="#腾讯Alloy（不更新）" class="headerlink" title="腾讯Alloy（不更新）"></a>腾讯Alloy（不更新）</h5><p><a target="_blank" rel="noopener" href="http://www.alloyteam.com/page/0/">http://www.alloyteam.com/page/0/</a></p>
+<h5 id="腾讯CDC"><a href="#腾讯CDC" class="headerlink" title="腾讯CDC"></a>腾讯CDC</h5><p><a target="_blank" rel="noopener" href="https://cdc.tencent.com/">https://cdc.tencent.com/</a></p>
+<h5 id="W3cplus-大漠"><a href="#W3cplus-大漠" class="headerlink" title="W3cplus - 大漠"></a>W3cplus - 大漠</h5><p><a target="_blank" rel="noopener" href="https://www.w3cplus.com/">https://www.w3cplus.com/</a></p>
+<h5 id="Kevin’s-Notes"><a href="#Kevin’s-Notes" class="headerlink" title="Kevin’s Notes"></a>Kevin’s Notes</h5><p><a target="_blank" rel="noopener" href="https://wuxinhua.com/archives/">https://wuxinhua.com/archives/</a></p>
+<h5 id="百度FEX（不更新）"><a href="#百度FEX（不更新）" class="headerlink" title="百度FEX（不更新）"></a>百度FEX（不更新）</h5><p><a target="_blank" rel="noopener" href="https://fex.baidu.com/">https://fex.baidu.com/</a></p>
+<h5 id="百度MEUX"><a href="#百度MEUX" class="headerlink" title="百度MEUX"></a>百度MEUX</h5><p><a target="_blank" rel="noopener" href="http://meux.baidu.com/articles">http://meux.baidu.com/articles</a></p>
+<h5 id="百度EFE（不更新）"><a href="#百度EFE（不更新）" class="headerlink" title="百度EFE（不更新）"></a>百度EFE（不更新）</h5><p><a target="_blank" rel="noopener" href="https://efe.baidu.com/">https://efe.baidu.com/</a></p>
+<h5 id="腾讯ISUX"><a href="#腾讯ISUX" class="headerlink" title="腾讯ISUX"></a>腾讯ISUX</h5><p><a target="_blank" rel="noopener" href="https://isux.tencent.com/articles/">https://isux.tencent.com/articles/</a></p>
+<h5 id="百度EUX（不更新）"><a href="#百度EUX（不更新）" class="headerlink" title="百度EUX（不更新）"></a>百度EUX（不更新）</h5><p><a target="_blank" rel="noopener" href="http://eux.baidu.com/">http://eux.baidu.com/</a></p>
+<h5 id="京东O2-Lab"><a href="#京东O2-Lab" class="headerlink" title="京东O2 Lab"></a>京东O2 Lab</h5><p><a target="_blank" rel="noopener" href="https://aotu.io/">https://aotu.io/</a></p>
+<h5 id="smashingMagazine-FE-amp-UX-tips"><a href="#smashingMagazine-FE-amp-UX-tips" class="headerlink" title="smashingMagazine - FE &amp; UX tips"></a>smashingMagazine - FE &amp; UX tips</h5><p><a target="_blank" rel="noopener" href="https://www.smashingmagazine.com/">https://www.smashingmagazine.com/</a></p>
+<h5 id="SitePoint"><a href="#SitePoint" class="headerlink" title="SitePoint"></a>SitePoint</h5><p><a target="_blank" rel="noopener" href="https://www.sitepoint.com/">https://www.sitepoint.com/</a></p>
+<h5 id="程序员poetry"><a href="#程序员poetry" class="headerlink" title="程序员poetry"></a>程序员poetry</h5><p><a target="_blank" rel="noopener" href="http://blog.poetries.top/archives/">http://blog.poetries.top/archives/</a></p>
+<h5 id="阿里云前端技术周刊（不更新）"><a href="#阿里云前端技术周刊（不更新）" class="headerlink" title="阿里云前端技术周刊（不更新）"></a>阿里云前端技术周刊（不更新）</h5><p><a target="_blank" rel="noopener" href="https://github.com/aliyunfe/weekly/">https://github.com/aliyunfe/weekly/</a></p>
+<h5 id="IVWEB技术周刊（不更新）"><a href="#IVWEB技术周刊（不更新）" class="headerlink" title="IVWEB技术周刊（不更新）"></a>IVWEB技术周刊（不更新）</h5><p><a target="_blank" rel="noopener" href="https://github.com/iv-web/weekly">https://github.com/iv-web/weekly</a></p>
+<h5 id="W3CTech（不更新）"><a href="#W3CTech（不更新）" class="headerlink" title="W3CTech（不更新）"></a>W3CTech（不更新）</h5><p><a target="_blank" rel="noopener" href="https://www.w3ctech.com/">https://www.w3ctech.com/</a></p>
+<h5 id="Gemini’s-Story"><a href="#Gemini’s-Story" class="headerlink" title="Gemini’s Story"></a>Gemini’s Story</h5><p><a target="_blank" rel="noopener" href="https://geminiwen.com/">https://geminiwen.com/</a></p>
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h3><h5 id="并发编程网"><a href="#并发编程网" class="headerlink" title="并发编程网"></a>并发编程网</h5><p><a target="_blank" rel="noopener" href="http://ifeve.com/">http://ifeve.com/</a></p>
+<h5 id="Java-极客技术-blog"><a href="#Java-极客技术-blog" class="headerlink" title="Java 极客技术 - blog"></a>Java 极客技术 - blog</h5><p><a target="_blank" rel="noopener" href="https://www.justdojava.com/">https://www.justdojava.com/</a></p>
+<h5 id="Java-Tutorials"><a href="#Java-Tutorials" class="headerlink" title="Java Tutorials"></a>Java Tutorials</h5><p><a target="_blank" rel="noopener" href="https://mkyong.com/">https://mkyong.com/</a></p>
+<h5 id="Hollis"><a href="#Hollis" class="headerlink" title="Hollis"></a>Hollis</h5><p><a target="_blank" rel="noopener" href="http://www.hollischuang.com/">http://www.hollischuang.com/</a></p>
+<h5 id="编程小梦"><a href="#编程小梦" class="headerlink" title="编程小梦"></a>编程小梦</h5><p><a target="_blank" rel="noopener" href="https://blog.bcmeng.com/">https://blog.bcmeng.com/</a></p>
+<h5 id="凝雨"><a href="#凝雨" class="headerlink" title="凝雨"></a>凝雨</h5><p><a target="_blank" rel="noopener" href="https://ningyu1.github.io/archives/">https://ningyu1.github.io/archives/</a></p>
+<h5 id="Leo的博客"><a href="#Leo的博客" class="headerlink" title="Leo的博客"></a>Leo的博客</h5><p><a target="_blank" rel="noopener" href="https://leehao.me/archives/">https://leehao.me/archives/</a></p>
+<h5 id="程序猿DD"><a href="#程序猿DD" class="headerlink" title="程序猿DD"></a>程序猿DD</h5><p><a target="_blank" rel="noopener" href="https://blog.didispace.com/">https://blog.didispace.com/</a></p>
+<h5 id="王奥"><a href="#王奥" class="headerlink" title="王奥"></a>王奥</h5><p><a target="_blank" rel="noopener" href="https://wsgzao.github.io/">https://wsgzao.github.io/</a></p>
+<h5 id="码志"><a href="#码志" class="headerlink" title="码志"></a>码志</h5><p><a target="_blank" rel="noopener" href="https://mazhuang.org/">https://mazhuang.org/</a></p>
+<h5 id="谢龙"><a href="#谢龙" class="headerlink" title="谢龙"></a>谢龙</h5><p><a target="_blank" rel="noopener" href="https://xielong.me/">https://xielong.me/</a></p>
+<h5 id="crossoverjie"><a href="#crossoverjie" class="headerlink" title="crossoverjie"></a>crossoverjie</h5><p><a target="_blank" rel="noopener" href="https://crossoverjie.top/">https://crossoverjie.top/</a></p>
+<h5 id="Emac"><a href="#Emac" class="headerlink" title="Emac"></a>Emac</h5><p><a target="_blank" rel="noopener" href="http://emacoo.cn/archives/">http://emacoo.cn/archives/</a></p>
+<h5 id="张松然"><a href="#张松然" class="headerlink" title="张松然"></a>张松然</h5><p><a target="_blank" rel="noopener" href="http://www.linkedkeeper.com/">http://www.linkedkeeper.com/</a></p>
+<h5 id="tigerb"><a href="#tigerb" class="headerlink" title="tigerb"></a>tigerb</h5><p><a target="_blank" rel="noopener" href="http://tigerb.cn/">http://tigerb.cn/</a></p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><h5 id="Google-Test-Blog"><a href="#Google-Test-Blog" class="headerlink" title="Google Test Blog"></a>Google Test Blog</h5><p><a target="_blank" rel="noopener" href="https://testing.googleblog.com/">https://testing.googleblog.com/</a></p>
+<h5 id="TesterHome"><a href="#TesterHome" class="headerlink" title="TesterHome"></a>TesterHome</h5><p><a target="_blank" rel="noopener" href="https://testerhome.com/">https://testerhome.com/</a></p>
+<h5 id="debugtalk"><a href="#debugtalk" class="headerlink" title="debugtalk"></a>debugtalk</h5><p><a target="_blank" rel="noopener" href="https://debugtalk.com/">https://debugtalk.com/</a></p>
+<h5 id="QA-seven（thoughtworks）-blog"><a href="#QA-seven（thoughtworks）-blog" class="headerlink" title="QA seven（thoughtworks） - blog"></a>QA seven（thoughtworks） - blog</h5><p><a target="_blank" rel="noopener" href="https://qaseven.github.io/">https://qaseven.github.io/</a></p>
+<h5 id="oscarxie"><a href="#oscarxie" class="headerlink" title="oscarxie"></a>oscarxie</h5><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/oscarxie/">https://www.cnblogs.com/oscarxie/</a></p>
+<h3 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h3><h5 id="DeepMind"><a href="#DeepMind" class="headerlink" title="DeepMind"></a>DeepMind</h5><p><a target="_blank" rel="noopener" href="https://www.deepmind.com/blog">https://www.deepmind.com/blog</a></p>
+<h3 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h3><h5 id="360-核心安全技术博客（不更新）"><a href="#360-核心安全技术博客（不更新）" class="headerlink" title="360 核心安全技术博客（不更新）"></a>360 核心安全技术博客（不更新）</h5><p><a target="_blank" rel="noopener" href="https://blogs.360.net/">https://blogs.360.net/</a></p>
+<h5 id="seebug"><a href="#seebug" class="headerlink" title="seebug"></a>seebug</h5><p><a target="_blank" rel="noopener" href="https://paper.seebug.org/">https://paper.seebug.org/</a></p>
+<h5 id="Network-Security-Research-Lab-at-360"><a href="#Network-Security-Research-Lab-at-360" class="headerlink" title="Network Security Research Lab at 360"></a>Network Security Research Lab at 360</h5><p><a target="_blank" rel="noopener" href="https://blog.netlab.360.com/">https://blog.netlab.360.com/</a></p>
+<h5 id="崔才庆"><a href="#崔才庆" class="headerlink" title="崔才庆"></a>崔才庆</h5><p><a target="_blank" rel="noopener" href="https://cuiqingcai.com/">https://cuiqingcai.com/</a></p>
+<h5 id="03sec"><a href="#03sec" class="headerlink" title="03sec"></a>03sec</h5><p><a target="_blank" rel="noopener" href="https://www.03sec.com/archives.html">https://www.03sec.com/archives.html</a></p>
+<h3 id="Golang"><a href="#Golang" class="headerlink" title="Golang"></a>Golang</h3><h5 id="火灯笔记-blog"><a href="#火灯笔记-blog" class="headerlink" title="火灯笔记 - blog"></a>火灯笔记 - blog</h5><p><a target="_blank" rel="noopener" href="https://blog.huoding.com/">https://blog.huoding.com/</a></p>
+<h5 id="Laruence-PHP-blog"><a href="#Laruence-PHP-blog" class="headerlink" title="Laruence/PHP - blog"></a>Laruence/PHP - blog</h5><p><a target="_blank" rel="noopener" href="https://www.laruence.com/">https://www.laruence.com/</a></p>
+<h3 id="非技术"><a href="#非技术" class="headerlink" title="非技术"></a>非技术</h3><h5 id="小土刀"><a href="#小土刀" class="headerlink" title="小土刀"></a>小土刀</h5><p><a target="_blank" rel="noopener" href="https://wdxtub.com/archives/">https://wdxtub.com/archives/</a></p>
+<h5 id="苏杰-blog"><a href="#苏杰-blog" class="headerlink" title="苏杰 - blog"></a>苏杰 - blog</h5><p><a target="_blank" rel="noopener" href="http://iamsujie.com/">http://iamsujie.com/</a></p>
+<h5 id="郭家宝-blog"><a href="#郭家宝-blog" class="headerlink" title="郭家宝 - blog"></a>郭家宝 - blog</h5><p><a target="_blank" rel="noopener" href="https://byvoid.com/zhs/blog/archive/">https://byvoid.com/zhs/blog/archive/</a></p>
+<h5 id="唐巧-blog"><a href="#唐巧-blog" class="headerlink" title="唐巧 - blog"></a>唐巧 - blog</h5><p><a target="_blank" rel="noopener" href="https://blog.devtang.com/">https://blog.devtang.com/</a></p>
+<h5 id="Barret李靖-blog（不更新）"><a href="#Barret李靖-blog（不更新）" class="headerlink" title="Barret李靖 - blog（不更新）"></a>Barret李靖 - blog（不更新）</h5><p><a target="_blank" rel="noopener" href="https://www.barretlee.com/entry/">https://www.barretlee.com/entry/</a></p>
+<h5 id="数林觅风"><a href="#数林觅风" class="headerlink" title="数林觅风"></a>数林觅风</h5><p><a target="_blank" rel="noopener" href="https://woaielf.github.io/">https://woaielf.github.io/</a></p>
+<h5 id="湾区日报（不更新）"><a href="#湾区日报（不更新）" class="headerlink" title="湾区日报（不更新）"></a>湾区日报（不更新）</h5><p><a target="_blank" rel="noopener" href="https://wanqu.co/">https://wanqu.co/</a></p>
+<h5 id="王登科"><a href="#王登科" class="headerlink" title="王登科"></a>王登科</h5><p><a target="_blank" rel="noopener" href="https://greatdk.com/">https://greatdk.com/</a></p>
+<hr>
+<h3 id="FE-1"><a href="#FE-1" class="headerlink" title="FE"></a>FE</h3><h5 id="现代JavaScript教程"><a href="#现代JavaScript教程" class="headerlink" title="现代JavaScript教程"></a>现代JavaScript教程</h5><p><a target="_blank" rel="noopener" href="https://zh.javascript.info/">https://zh.javascript.info/</a></p>
+<h5 id="JavaScript秘密花园"><a href="#JavaScript秘密花园" class="headerlink" title="JavaScript秘密花园"></a>JavaScript秘密花园</h5><p><a target="_blank" rel="noopener" href="https://bonsaiden.github.io/JavaScript-Garden/zh/">https://bonsaiden.github.io/JavaScript-Garden/zh/</a></p>
+<h5 id="JS正则迷你书"><a href="#JS正则迷你书" class="headerlink" title="JS正则迷你书"></a>JS正则迷你书</h5><p><a target="_blank" rel="noopener" href="https://github.com/qdlaoyao/js-regex-mini-book">https://github.com/qdlaoyao/js-regex-mini-book</a></p>
+<h5 id="CodePen"><a href="#CodePen" class="headerlink" title="CodePen"></a>CodePen</h5><p><a target="_blank" rel="noopener" href="https://codepen.io/trending">https://codepen.io/trending</a></p>
+<h5 id="Learn-to-Code-HTML-amp-CSS"><a href="#Learn-to-Code-HTML-amp-CSS" class="headerlink" title="Learn to Code HTML &amp; CSS"></a>Learn to Code HTML &amp; CSS</h5><p><a target="_blank" rel="noopener" href="https://learn.shayhowe.com/html-css/">https://learn.shayhowe.com/html-css/</a></p>
+<h5 id="百度前端技术学园"><a href="#百度前端技术学园" class="headerlink" title="百度前端技术学园"></a>百度前端技术学园</h5><p><a target="_blank" rel="noopener" href="https://ife.baidu.com/">https://ife.baidu.com/</a></p>
+<h3 id="通用-1"><a href="#通用-1" class="headerlink" title="通用"></a>通用</h3><h5 id="学习正则表达式的简单方法"><a href="#学习正则表达式的简单方法" class="headerlink" title="学习正则表达式的简单方法"></a>学习正则表达式的简单方法</h5><p><a target="_blank" rel="noopener" href="https://github.com/cdoco/learn-regex-zh">https://github.com/cdoco/learn-regex-zh</a></p>
+<h5 id="RIP-Tutorial"><a href="#RIP-Tutorial" class="headerlink" title="RIP Tutorial"></a>RIP Tutorial</h5><p><a target="_blank" rel="noopener" href="https://riptutorial.com/">https://riptutorial.com/</a></p>
+<h5 id="Tutorials-for-Software-Developers-and-Technopreneurs"><a href="#Tutorials-for-Software-Developers-and-Technopreneurs" class="headerlink" title="Tutorials for Software Developers and Technopreneurs"></a>Tutorials for Software Developers and Technopreneurs</h5><p><a target="_blank" rel="noopener" href="http://tutorials.jenkov.com/">http://tutorials.jenkov.com/</a></p>
+<h5 id="卡梅隆大学-计算机系统概述"><a href="#卡梅隆大学-计算机系统概述" class="headerlink" title="卡梅隆大学 - 计算机系统概述"></a>卡梅隆大学 - 计算机系统概述</h5><p><a target="_blank" rel="noopener" href="http://www.cs.cmu.edu/~./213/schedule.html">http://www.cs.cmu.edu/~./213/schedule.html</a></p>
+<h5 id="凤凰架构"><a href="#凤凰架构" class="headerlink" title="凤凰架构"></a>凤凰架构</h5><p><a target="_blank" rel="noopener" href="http://icyfenix.cn/summary/">http://icyfenix.cn/summary/</a></p>
+<h5 id="asciiflow"><a href="#asciiflow" class="headerlink" title="asciiflow"></a>asciiflow</h5><p><a target="_blank" rel="noopener" href="https://asciiflow.com/#/">https://asciiflow.com/#/</a></p>
+<h5 id="手绘流程图"><a href="#手绘流程图" class="headerlink" title="手绘流程图"></a>手绘流程图</h5><p><a target="_blank" rel="noopener" href="https://excalidraw.com/">https://excalidraw.com/</a></p>
+<h5 id="Text-to-ASCII"><a href="#Text-to-ASCII" class="headerlink" title="Text to ASCII"></a>Text to ASCII</h5><p><a target="_blank" rel="noopener" href="http://patorjk.com/software/taag/">http://patorjk.com/software/taag/</a></p>
+<h5 id="image-to-ascii"><a href="#image-to-ascii" class="headerlink" title="image to ascii"></a>image to ascii</h5><p><a target="_blank" rel="noopener" href="https://www.text-image.com/convert/">https://www.text-image.com/convert/</a></p>
+
+    </article>
+    <!-- license -->
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+        </li>
+    </ul>
+    <!-- comment -->
+     
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                    
+                    <img class="profile-qr" src="/assets/wechat.jpeg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://weibo.com/isisiwish" class="iconfont-archer weibo" target="_blank" title=weibo></a>
+            
+        
+    
+        
+            
+                <a href="https://www.zhihu.com/people/i.9ish" class="iconfont-archer zhihu" target="_blank" title=zhihu></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/isisiwish" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 3
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span>
+            <a class="archive-post-title" href="/2022-05-01/0430-FE/">前端系统学习路径</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/06</span>
+            <a class="archive-post-title" href="/2022-03-06/0306-%E7%BB%9F%E8%AE%A1%E5%AD%A6%E7%AC%94%E8%AE%B0/">统计学 Note</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/17</span>
+            <a class="archive-post-title" href="/2022-02-17/0217-blogging/">胡言乱语</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="NOTE">
+            <span class="iconfont-archer">&#xe60a;</span>
+            NOTE
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="OTHER">
+            <span class="iconfont-archer">&#xe60a;</span>
+            OTHER
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="FE">
+            <span class="iconfont-archer">&#xe60a;</span>
+            FE
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMeta = {
+        root: "/",
+        author: "isisiwish"
+    }
+</script>
+
+        <!-- main func -->
+        <script src="/scripts/main.js"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+        <!-- mermaid -->
+        
+    </body>
+</html>
